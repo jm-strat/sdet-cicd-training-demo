@@ -87,3 +87,11 @@ jobs:
           name: typescript-test-report
           path: playwright-typescript/playwright-report/
           retention-days: 7
+
+      - name: Upload test results (videos, traces, screenshots)
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: typescript-test-results
+          path: playwright-typescript/test-results/
+          retention-days: 7
