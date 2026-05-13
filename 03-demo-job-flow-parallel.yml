@@ -1,0 +1,24 @@
+name: Job Flow - Parallel
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print job name
+        run: echo "Running lint job"
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print job name
+        run: echo "Running test job"
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print job name
+        run: echo "Running build job"

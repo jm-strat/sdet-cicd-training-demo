@@ -1,0 +1,48 @@
+name: 06 - Demo Conditionals
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+
+  # ── CONDITIONAL OPERATORS ───────────────
+  # using && and || to combine conditions
+  conditional-operators:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Runs only on push to main
+        if: github.event_name == 'push' && github.ref_name == 'main'
+        run: echo "This is a push event on main branch"
+
+      - name: Runs on push or manual trigger
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: echo "Triggered by push or manual dispatch"
+
+      - name: Runs on any branch except main
+        if: github.ref_name != 'main'
+        run: echo "This is not the main branch"
+
+  # ── STATUS FUNCTIONS ────────────────────
+  # using failure() and success() to react to step outcomes
+  status-functions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: This step will fail
+        id: failing-step
+        run: exit 1
+
+      - name: Runs only on success
+        if: success()
+        run: echo "Previous step succeeded"    # skipped — failing-step failed
+
+      - name: Runs only on failure
+        if: failure()
+        run: echo "Previous step failed"       # runs — failing-step failed
+
+      - name: Always runs
+        if: always()
+        run: echo "I always run no matter what"

@@ -1,0 +1,33 @@
+name: Job Flow - Sequence
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print job name
+        run: echo "Running lint job"
+
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Print job name
+        run: echo "Running test job"
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Print job name
+        run: echo "Running build job"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Print job name
+        run: echo "Running deploy job"

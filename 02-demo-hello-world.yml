@@ -1,0 +1,27 @@
+name: 02 - Demo Hello World
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Hello
+        run: echo "Hello from GitHub Actions!"
+
+      - name: Print who triggered it
+        run: echo "Triggered by ${{ github.actor }}"
+
+      - name: Print the branch
+        run: echo "Branch -> ${{ github.ref_name }}"
+
+      - name: Print the commit SHA
+        run: echo "Commit -> ${{ github.sha }}"
+
+      - name: Print the event
+        run: echo "Event -> ${{ github.event_name }}"
+
+      - name: Say Goodbye
+        run: echo "Goodbye from GitHub Actions!"

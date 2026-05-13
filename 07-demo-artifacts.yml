@@ -1,0 +1,37 @@
+name: 07 - Demo Artifacts
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+
+  # ── JOB 1 ───────────────────────────────
+  # create a file and upload it as an artifact
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create a file
+        run: echo "Hello from the upload job" > message.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-artifact
+          path: message.txt
+
+  # ── JOB 2 ───────────────────────────────
+  # download the artifact and read the file
+  download:
+    runs-on: ubuntu-latest
+    needs: upload
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: my-artifact
+          path: downloaded/
+
+      - name: Read the file
+        run: cat downloaded/message.txt
